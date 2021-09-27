@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/pokemon.css" />
     <link rel="icon" type="image/png" href="/imagens/favicon.png" />
     <title>Home</title>
   </head>
@@ -16,18 +17,111 @@
         <nav>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="pokemon.html">Pokemon</a></li>
+            <li><a href="pokemon.html">Pokemons</a></li>
             <li><a href="item.html">Itens</a></li>
             <li><a href="info.html">Infos</a></li>
           </ul>
         </nav>
       </div>
     </header>
-    <main></main>
+
+    <main>
+      <section class="section-box">
+        <h2 class="section-title">Pokemons List</h2>
+        <!-- <div ></div> -->
+        <ul class="list-index-pokemons" id="pokemonView"></ul>
+        <!-- <a class="check-over" href="pokemon.html">check over &#10140;</a> -->
+      </section>
+      <section class="section-box">
+        <h2 class="section-title">Itens List</h2>
+        <ul class="list-index-itens" id="itensView"></ul>
+      </section>
+      <section class="section-box">
+        <h2 class="section-title">Weekness Table</h2>
+        <div class="info-box">
+          <img src="/imagens/table.jpg" alt="Weekness table" />
+        </div>
+      </section>
+    </main>
+
     <footer>
       <p class="copyright">
         &copy; Copyright Pokemon Gotta catch ém all - 2021
       </p>
     </footer>
+    <script src="/js/views/pokemonView.js"></script>
+    <script src="/js/views/itemView.js"></script>
+    <script src="/js/services/httpService.js"></script>
+    <script src="/js/models/pokemon.js"></script>
+    <script src="/js/models/item.js"></script>
+    <script>
+      let list = [1, 4, 7, 25];
+
+      (function loop(index, length) {
+        if (index >= length) {
+          return;
+        }
+
+        new HttpService()
+          .get('https://pokeapi.co/api/v2/pokemon/' + list[index])
+          .then((pokemon_data) => {
+            let pokemon_json = JSON.parse(pokemon_data);
+
+            let pokemon = new Pokemon(
+              pokemon_json.id,
+              pokemon_json.name,
+              pokemon_json.widght,
+              pokemon_json.height,
+              pokemon_json.types.length !== 0
+                ? [...pokemon_json.types.map((item) => item.type.name)]
+                : pokemon_json.types,
+              pokemon_json.stats,
+              pokemon_json.sprites.front_default
+            );
+
+            pokemon.viewIndex();
+
+            loop(index + 1, length);
+          })
+          .catch((err) => console.error(err));
+      })(0, list.length);
+    </script>
+
+    <script>
+      let xhr_item = new XMLHttpRequest();
+      let list_list = [4, 3, 2, 1];
+
+      (function loop(index, length) {
+        if (index >= length) {
+          return;
+        }
+
+        xhr_item.open(
+          'GET',
+          'https://pokeapi.co/api/v2/item/' + list_list[index]
+        );
+
+        xhr_item.onreadystatechange = () => {
+          if (xhr_item.readyState == 4) {
+            if (xhr_item.status == 200) {
+              let item_json = JSON.parse(xhr_item.responseText);
+              console.log(item_json);
+
+              let item = new Item(
+                item_json.id,
+                item_json.name.split('-').join(' '),
+                item_json.cost,
+                item_json.sprites.default
+              );
+
+              item.viewIndex();
+              loop(index + 1, length);
+            }
+          }
+        };
+
+        xhr_item.send();
+      })(0, list_list.length);
+    </script>
   </body>
 </html>
