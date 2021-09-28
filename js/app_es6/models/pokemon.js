@@ -1,8 +1,9 @@
-class Pokemon {
+import { PokemonView } from '../views/pokemonView';
+export class Pokemon {
   constructor(
     id,
     name,
-    widght,
+    weight,
     height,
     types,
     stats,
@@ -12,7 +13,7 @@ class Pokemon {
   ) {
     this._id = id;
     this._name = name;
-    this._widght = widght;
+    this._weight = weight;
     this._height = height;
     this._types = types;
     this._stats = stats;
@@ -24,7 +25,7 @@ class Pokemon {
   viewIndex() {
     let model = {
       types: this._types,
-      src: this._sprites,
+      sprite: this._sprites.front_default,
       name: this._name,
     };
 

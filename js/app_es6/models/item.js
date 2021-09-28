@@ -1,4 +1,5 @@
-class Item {
+import { ItemView } from '../views/itemView';
+export class Item {
   constructor(id, name, cost, sprite) {
     this._id = id;
     this._name = name;

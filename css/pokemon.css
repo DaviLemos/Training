@@ -159,3 +159,7 @@
 .type-background-normal {
   background: url(/imagens/normal_background.png) center left;
 }
+
+.type-background-psychic {
+  background: url(/imagens/psychic_background.png) center left;
+}

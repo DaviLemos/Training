@@ -1,4 +1,4 @@
-class ItemView {
+export class ItemView {
   static templateIndex(model) {
     return `
             <li>

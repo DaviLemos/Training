@@ -1,4 +1,4 @@
-class PokemonView {
+export class PokemonView {
   static templateIndex(model) {
     return `
               <li>
@@ -9,7 +9,7 @@ class PokemonView {
                         ? model.types[1]
                         : model.types[0]
                     }"
-                    src=${model.src}
+                    src=${model.sprite}
                     alt= "${model.name} Image"
                   />
                   <h3>${model.name}</h3>

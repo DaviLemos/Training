@@ -49,79 +49,25 @@
         &copy; Copyright Pokemon Gotta catch ém all - 2021
       </p>
     </footer>
-    <script src="/js/views/pokemonView.js"></script>
-    <script src="/js/views/itemView.js"></script>
-    <script src="/js/services/httpService.js"></script>
-    <script src="/js/models/pokemon.js"></script>
-    <script src="/js/models/item.js"></script>
+    <script src="../node_modules/systemjs/dist/system.js"></script>
     <script>
-      let list = [1, 4, 7, 25];
-
-      (function loop(index, length) {
-        if (index >= length) {
-          return;
-        }
-
-        new HttpService()
-          .get('https://pokeapi.co/api/v2/pokemon/' + list[index])
-          .then((pokemon_data) => {
-            let pokemon_json = JSON.parse(pokemon_data);
-
-            let pokemon = new Pokemon(
-              pokemon_json.id,
-              pokemon_json.name,
-              pokemon_json.widght,
-              pokemon_json.height,
-              pokemon_json.types.length !== 0
-                ? [...pokemon_json.types.map((item) => item.type.name)]
-                : pokemon_json.types,
-              pokemon_json.stats,
-              pokemon_json.sprites.front_default
-            );
-
-            pokemon.viewIndex();
-
-            loop(index + 1, length);
-          })
-          .catch((err) => console.error(err));
-      })(0, list.length);
-    </script>
-
-    <script>
-      let xhr_item = new XMLHttpRequest();
-      let list_list = [4, 3, 2, 1];
-
-      (function loop(index, length) {
-        if (index >= length) {
-          return;
-        }
-
-        xhr_item.open(
-          'GET',
-          'https://pokeapi.co/api/v2/item/' + list_list[index]
-        );
-
-        xhr_item.onreadystatechange = () => {
-          if (xhr_item.readyState == 4) {
-            if (xhr_item.status == 200) {
-              let item_json = JSON.parse(xhr_item.responseText);
-              console.log(item_json);
-
-              let item = new Item(
-                item_json.id,
-                item_json.name.split('-').join(' '),
-                item_json.cost,
-                item_json.sprites.default
-              );
-
-              item.viewIndex();
-              loop(index + 1, length);
-            }
-          }
-        };
-
-        xhr_item.send();
-      })(0, list_list.length);
+      SystemJS.config({
+        // Tell it that our javascript files are in the /js folder
+        baseURL: '/js',
+        // Tell it to apply Babel to our JS files
+        transpiler: 'plugin-babel',
+        // Configure the Babel plugin - it's basically just telling it where to read the files from - in our case, they're in node_modules
+        map: {
+          'plugin-babel':
+            '../node_modules/systemjs-plugin-babel/plugin-babel.js',
+          'systemjs-babel-build':
+            '../node_modules/systemjs-plugin-babel/systemjs-babel-browser.js',
+        },
+      });
+      System.defaultJSExtensions = true;
+      System.import('../js/app_es6/boot.js').catch(function (err) {
+        console.error(err);
+      });
     </script>
   </body>
 </html>
