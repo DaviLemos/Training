@@ -22,20 +22,6 @@ export class Pokemon {
     //   this._moves = moves;
   }
 
-  viewIndex() {
-    let model = {
-      types: this._types,
-      sprite: this._sprites.front_default,
-      name: this._name,
-    };
-
-    let div = document.querySelector('#pokemonView');
-
-    div.innerHTML
-      ? (div.innerHTML += PokemonView.templateIndex(model))
-      : (div.innerHTML = PokemonView.templateIndex(model));
-  }
-
   get id() {
     return this._id;
   }

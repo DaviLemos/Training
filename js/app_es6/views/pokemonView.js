@@ -1,32 +1,41 @@
-export class PokemonView {
-  static templateIndex(model) {
+import { View } from './view';
+export class PokemonView extends View {
+  constructor(element) {
+    super(element);
+  }
+
+  template(pokemons) {
     return `
-              <li>
-                <div>
-                  <img
-                    class="type-background-${
-                      model.types.length != 1 && model.types[0] == 'normal'
-                        ? model.types[1]
-                        : model.types[0]
-                    }"
-                    src=${model.sprite}
-                    alt= "${model.name} Image"
-                  />
-                  <h3>${model.name}</h3>
-                  <p>
-                    ${model.types
-                      .map(
-                        (type) => `
-                      <p class="type-default type-color-${type}">
-                        ${type}
-                      </p>
-                    `
-                      )
-                      .join('')}
-                  </p>
-                </div>
-              </li>
-            `;
+    ${pokemons
+      .map(
+        (pokemon) => `<a href="pokemonInfo.html?${pokemon.name}">
+                        <li class="pokemon-data" id=${pokemon.id}>
+                          <img
+                            class="type-background-${
+                              pokemon.types.length != 1 &&
+                              pokemon.types[0] == 'normal'
+                                ? pokemon.types[1]
+                                : pokemon.types[0]
+                            } pokemon_background"
+                            src=${pokemon.sprites.front_default}
+                            alt= "${pokemon.name} Image"
+                          />
+                          <h3>${pokemon.name}</h3>
+                          <div>
+                            ${pokemon.types
+                              .map(
+                                (type) => `
+                              <p class="type-default type-color-${type}">
+                                ${type}
+                              </p>
+                            `
+                              )
+                              .join('')}
+                          </div>        
+                        </li>
+                      </a>`
+      )
+      .join('')}`;
   }
 }
 

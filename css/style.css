@@ -61,20 +61,31 @@ nav a:hover {
   text-align: center;
 }
 
+.list-index-pokemons a {
+  text-decoration: none;
+  color: black;
+}
+
 .list-index-pokemons li {
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
   display: inline-block;
   text-align: center;
+  vertical-align: middle;
   background: url(/imagens/background.png);
   background-size: cover;
-  width: 145px;
+  width: 160px;
+  height: 220px;
   margin: 20px 10px 10px;
-  cursor: pointer;
+  /* cursor: pointer; */
+}
+.list-index-pokemons div {
+  margin: 10px 0 0;
 }
 
 .list-index-pokemons img {
+  margin: 10px 0 0;
   border-radius: 20px;
   background-size: auto;
 }
@@ -88,7 +99,7 @@ nav a:hover {
 
 .list-index-pokemons h3 {
   text-align: center;
-  margin: 5px 0 20px;
+  margin: 20px 0 20px;
   font-size: 20px;
   text-transform: capitalize;
   font-weight: bold;

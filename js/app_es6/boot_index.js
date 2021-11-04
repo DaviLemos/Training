@@ -7,8 +7,5 @@ let item_list = [4, 17, 18, 28];
 let pokemonController = pokemonCurrentInstance();
 let itemController = itemCurrentInstance();
 
-pokemonController.getPokemon(
-  pokemon_list,
-  'https://pokeapi.co/api/v2/pokemon/'
-);
+pokemonController.getPokemon(pokemon_list);
 itemController.getItem(item_list, 'https://pokeapi.co/api/v2/item/');

@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/pokemon_style.css" />
+    <link rel="stylesheet" href="/css/pokemon.css" />
     <link rel="icon" type="image/png" href="/imagens/favicon.png" />
-    <title>Home</title>
+    <title>Pokemons</title>
   </head>
   <body>
     <header>
@@ -26,22 +27,27 @@
     </header>
 
     <main>
-      <section class="section-box">
-        <h2 class="section-title">Pokemons List</h2>
-        <!-- <div ></div> -->
-        <ul class="list-index-pokemons" id="pokemonView"></ul>
-        <!-- <a class="check-over" href="pokemon.html">check over &#10140;</a> -->
-      </section>
-      <section class="section-box">
-        <h2 class="section-title">Itens List</h2>
-        <ul class="list-index-itens" id="itensView"></ul>
-      </section>
-      <section class="section-box">
-        <h2 class="section-title">Weekness Table</h2>
-        <div class="info-box">
-          <img src="/imagens/table.jpg" alt="Weekness table" />
-        </div>
-      </section>
+      <div class="search-box">
+        <select class="search-select" name="" id="search-select">
+          <option value="1-151" selected="selected">Generation I</option>
+          <option value="152-251">Generation II</option>
+          <option value="252-386">Generation III</option>
+          <option value="387-493">Generation IV</option>
+          <option value="494-649">Generation V</option>
+          <option value="650-721">Generation VI</option>
+          <option value="722-809">Generation VII</option>
+          <option value="810-898">Generation VIII</option>
+          <option value="10001-10220">Extra</option>
+        </select>
+
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Search Pokemon..."
+        />
+      </div>
+
+      <ul class="list-index-pokemons" id="pokemonView" class=""></ul>
     </main>
 
     <footer>
@@ -65,7 +71,7 @@
         },
       });
       System.defaultJSExtensions = true;
-      System.import('../js/app_es6/boot_index.js').catch(function (err) {
+      System.import('../js/app_es6/boot_pokemon.js').catch(function (err) {
         console.error(err);
       });
     </script>
